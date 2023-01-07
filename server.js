@@ -1,12 +1,17 @@
+
 const express = require('express')
+const dotenv = require('dotenv')
 const next = require('next')
 const vhost = require('vhost')
 const Vhost = require('./vhost')
-
 const {promises: {readdir, access}} = require("fs");
+dotenv.config()
 
-const port = process.env.PORT || 3000
-const dev = process.env.NODE_ENV !== 'production'
+const { env: {PORT, NODE_ENV, DOMAIN_NAME }} = process
+
+const port = PORT || 3000
+const domainName = DOMAIN_NAME
+const dev = NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
@@ -28,12 +33,12 @@ app.prepare().then(async() => {
   for( subDomain of subDomains) {
     vHosts[subDomain] = new Vhost(subDomain, app)
     vHosts[subDomain] = vHosts[subDomain].build()
-    mainServer.use(vhost(`${subDomain}.localhost`, vHosts[subDomain]))
+    mainServer.use(vhost(`${subDomain}.${domainName}`, vHosts[subDomain]))
   }
 
   mainServer.listen(port, (err) => {
     if (err) throw err
 
-    console.log(`> Ready on http://localhost:${port}`)
+    console.log(`> Ready on ${domainName}:${port}`)
   })
 })
