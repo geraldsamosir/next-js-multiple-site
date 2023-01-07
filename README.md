@@ -1,4 +1,4 @@
-# Virtual Host Next.js
+# Virtual Host Next.js ⚒️
 
 ## Development requirement 🏗
 1. check  your local pc dns `/etc/host`
