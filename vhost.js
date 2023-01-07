@@ -1,6 +1,13 @@
 const express = require('express')
 
 class Vhost {
+    /**
+     * Virtual host contructor
+     * 
+     * @param {string} submdomain [based on pages subfolder]
+     * @param {Object} nextApp [next js instance  ]
+     * 
+     */
     constructor (submdomain, nextApp) {
         this.expressApp =  express()
         this.nextApp = nextApp
@@ -8,6 +15,11 @@ class Vhost {
         this.submdomain = submdomain
     }
 
+    /**
+     * Build virtualhost subdomains 
+     * 
+     * @returns {Express.Application} 
+     */
     build() {
       this.expressApp.get('/', (req, res) => {
         return this.nextApp.render(req, res, `/${this.submdomain}`, req.query)

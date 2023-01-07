@@ -5,20 +5,23 @@ const Vhost = require('./vhost')
 
 const {promises: {readdir, access}} = require("fs");
 
-
 const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
 
+const getListSubdomain = async () => {
+  let pages =  await readdir('./pages', {withFileTypes: true})
+  pages = pages.filter(page=> page.isDirectory)
+  
+  return pages.map(page => page.name)
+}
 
 app.prepare().then(async() => {
   const mainServer = express()
-  let pages =  await readdir('./pages', {withFileTypes: true})
-  pages = pages.filter(page=> page.isDirectory)
 
-  const subDomains = pages.map(page => page.name)
+  const subDomains = await getListSubdomain()
 
   const vHosts = {}
   
