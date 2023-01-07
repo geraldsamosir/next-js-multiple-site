@@ -18,9 +18,17 @@ on progress
 
 ### 1. Using Docker 🐳
 ```mermaid
-  graph TD;
-      A-->B;
-      A-->C;
-      B-->D;
-      C-->D;
+  sequenceDiagram
+    actor Client
+    Client ->> DNS Server: get address of subdomain
+    DNS Server ->> Client: address
+    Client ->> Nginx Proxy : request in
+    par Inside Docker
+        Nginx Proxy ->> next-multiple-site: request in
+        Nginx Proxy ->> Nginx Proxy: all filter custom like (rate limit, security validator ect)
+        Nginx Proxy ->> next-multiple-site: request forward
+        next-multiple-site ->> next-multiple-site: check subdomin comming
+        next-multiple-site ->> Nginx Proxy: response
+    end
+    Nginx Proxy ->> Client: response
 ```
