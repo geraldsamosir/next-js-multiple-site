@@ -1,4 +1,4 @@
-# Virtual Host Next.js 🏋️‍♂️
+# Next.js Multiple Site (Subdomain) 🏋️‍♂️
 
 ## Development requirement 🏗
 1. check  your local pc dns `/etc/host`
