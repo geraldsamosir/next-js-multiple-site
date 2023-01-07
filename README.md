@@ -25,7 +25,7 @@ on progress
     Client ->> Nginx Proxy : request in
     par Inside Docker
         Nginx Proxy ->> next-multiple-site: request in
-        Nginx Proxy ->> Nginx Proxy: all filter custom like (rate limit, security validator ect)
+        Nginx Proxy ->> Nginx Proxy: all filter custom <br>like :<br> 1. rate limit <br> 2. security<br> 3.validator ect
         Nginx Proxy ->> next-multiple-site: request forward
         next-multiple-site ->> next-multiple-site: check subdomin comming
         next-multiple-site ->> Nginx Proxy: response
