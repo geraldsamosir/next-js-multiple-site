@@ -13,3 +13,14 @@
 
 ### 2. In CPanel 🚤
 on progress
+
+## Apps Flow 
+
+### 1. Using Docker 🐳
+```mermaid
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
+```
