@@ -32,3 +32,19 @@ on progress
     end
     Nginx Proxy ->> Client: response
 ```
+### 2. In CPanel 🚤
+```mermaid
+ sequenceDiagram
+    actor Client
+    Client ->> DNS Server: get address of subdomain
+    DNS Server ->> Client: address
+    Client ->> Hosting Proxy : request in
+    Hosting Proxy ->> next-multiple-site: request in
+    Hosting Proxy ->> Hosting Proxy: all filter custom <br>like :<br> 1. rate limit <br> 2. security<br> 3.validator ect
+    Hosting Proxy ->> next-multiple-site: request forward
+    next-multiple-site ->> next-multiple-site: check subdomin comming
+    next-multiple-site ->> Hosting Proxy: response
+    Hosting Proxy ->> Client: response 
+
+   
+```
